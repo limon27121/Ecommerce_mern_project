@@ -3,7 +3,25 @@ const express=require("express");
 const morgan=require("morgan");
 const app=express();
 
+
 app.use(morgan("dev"));
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+
+
+//middleware
+const is_logged=(req,res,next)=>{
+   const value=true;
+   if(value){
+    req.body.id=101;
+    next()
+   } else{
+    return res.status(401).json({message:"please log in first"});
+   }
+ 
+}
+
+// app.use(is_logged);
 
 // //http request handle 
 // api health check
@@ -14,23 +32,13 @@ app.get("/test",(req,res)=>{
     });
 });
 
-app.post("/test",(req,res)=>{
+app.get("/api/user",is_logged,(req,res)=>{
+    console.log(req.body.id)
     res.status(200).send({
-        message:"post: welcome to  limon server",
+        message:"user profile are returned",
     });
 });
 
-app.put("/test",(req,res)=>{
-    res.status(200).send({
-        message:"put: welcome to  limon server",
-    });
-});
-
-app.delete("/test",(req,res)=>{
-    res.status(200).send({
-        message:"delete: welcome to  limon server",
-    });
-});
 
 
 
