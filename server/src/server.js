@@ -1,12 +1,14 @@
 //express server ready for work
 const express=require("express");
 const morgan=require("morgan");
+//third partymiddle ware
+const body_parser=require("body-parser");
 const app=express();
 
 
 app.use(morgan("dev"));
-app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(body_parser.json());
+app.use(body_parser.urlencoded({extended: true}));
 
 
 //middleware
@@ -39,8 +41,20 @@ app.get("/api/user",is_logged,(req,res)=>{
     });
 });
 
+//client error handling
 
+app.use((req,res,next)=>{
+res.status(404).json({message:"route note found"})
+next()
 
+})
+
+//server error handle
+app.use((err,req,res,next)=>{
+    console.error(err.stack);
+    res.status(404).json({message:"something broke"})
+    
+    })
 
 
 
