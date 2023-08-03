@@ -11,8 +11,34 @@ app.use(morgan("dev"));
 app.get("/test",(req,res)=>{
     res.status(200).send({
         message:"welcome to  limon server",
-    })
-})
+    });
+});
+
+app.post("/test",(req,res)=>{
+    res.status(200).send({
+        message:"post: welcome to  limon server",
+    });
+});
+
+app.put("/test",(req,res)=>{
+    res.status(200).send({
+        message:"put: welcome to  limon server",
+    });
+});
+
+app.delete("/test",(req,res)=>{
+    res.status(200).send({
+        message:"delete: welcome to  limon server",
+    });
+});
+
+
+
+
+
+
+
+
 
 //running server at 3001 port
 app.listen(3001,()=>{

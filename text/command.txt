@@ -1,1 +1,6 @@
 server run:npm start
+
+change derectory: cd server/
+
+
+run nodemon:  npm run dev
